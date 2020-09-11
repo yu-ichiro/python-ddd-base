@@ -57,7 +57,7 @@ class UserListResult(BaseModel):
 
 
 @user_router.get('/users', response_model=UserListResult)
-async def list_users(limit: int = Query(50, ge=0), offset: int =Query(0, ge=0)) -> UserListResult:
+async def list_users(limit: int = Query(50, ge=0), offset: int = Query(0, ge=0)) -> UserListResult:
     use_case = UserUseCase()
 
     result = use_case.list_users(BulkRequest(limit=limit, offset=offset))
