@@ -7,7 +7,7 @@ Base project for DDD in Python
 1. Initialize poetry env
 
 ```
-poetry init
+poetry install
 ```
 
 # run
