@@ -3,7 +3,8 @@ Base project for DDD in Python
 
 # setup
 
-Install [poetry](https://github.com/python-poetry/poetry)
+0. Install [poetry](https://github.com/python-poetry/poetry) if you don't have it yet.
+1. Initialize poetry env
 
 ```
 poetry init
