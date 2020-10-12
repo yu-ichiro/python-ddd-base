@@ -1,14 +1,10 @@
 from abc import ABC, abstractmethod
 from typing import Optional, List
 
-from example.domain.user import User, UserID, Name, BulkRequest
+from example.domain.user import User, UserID, BulkRequest
 
 
 class IUserRepo(ABC):
-    @abstractmethod
-    def create_user(self, name: Name) -> User:
-        ...
-
     @abstractmethod
     def get_user(self, user_id: UserID) -> Optional[User]:
         ...

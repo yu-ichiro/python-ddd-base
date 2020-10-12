@@ -6,7 +6,6 @@ from example.domain.user.IUserRepo import IUserRepo
 
 class MockUserRepo(IUserRepo):
     def __init__(self):
-        self._counter = 0
         user_id = UserID(value='dummy')
         self._data = {
             user_id.value: User(
@@ -29,15 +28,6 @@ class MockUserRepo(IUserRepo):
     def save_user(self, user: User) -> bool:
         self._data[user.id.value] = user
         return True
-
-    def create_user(self, name: Name) -> User:
-        new_user_id = UserID(value=str(self._counter))
-        if new_user_id.value in self._data:
-            raise RuntimeError('id collision')
-        new_user = User(id=new_user_id, name=name)
-        self._data[new_user_id.value] = new_user
-        self._counter += 1
-        return new_user
 
     def exist_user(self, user_id: UserID) -> bool:
         return user_id.value in self._data

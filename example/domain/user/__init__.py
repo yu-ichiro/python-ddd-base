@@ -1,20 +1,9 @@
 import re
 from typing import Optional
 
-from pydantic import BaseModel, BaseConfig, Field
+from pydantic import Field
 
-
-class Base(BaseModel):
-    class Config(BaseConfig):
-        orm_mode = True
-
-
-class EntityBase(Base):
-    ...
-
-
-class ValueBase(Base):
-    ...
+from example.domain import EntityBase, ValueBase, IDBase
 
 
 class Kana(str):
@@ -63,10 +52,14 @@ class BulkRequest(ValueBase):
     offset: int = Field(0, description="Number of results to skip", example=0, ge=0)
 
 
-class UserID(ValueBase):
+class UserID(IDBase):
     value: str
 
 
 class User(EntityBase):
     id: UserID
     name: Name
+
+    @classmethod
+    def create(cls, name: Name):
+        return cls(id=UserID.generate(), name=name)

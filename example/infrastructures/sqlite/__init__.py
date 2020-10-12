@@ -72,21 +72,11 @@ class SqliteUserRepo(IUserRepo):
         session = self.session_cls()
         user_orm: UserORM = session.query(UserORM).filter(UserORM.id == user.id.value).first()
         if not user_orm:
-            return False
+            user_orm = UserORM(id=user.id.value)
         user_orm.set_user_data(name=user.name)
         session.add(user_orm)
         session.commit()
         return True
-
-    def create_user(self, name: Name) -> User:
-        session = self.session_cls()
-        user_orm = UserORM()
-        user_orm.id = str(uuid4())
-        user_orm.set_user_data(name=name)
-        session.add(user_orm)
-        session.commit()
-        session.refresh(user_orm)
-        return user_orm.to_eo()
 
     def exist_user(self, user_id: UserID) -> bool:
         return bool(self.get_user(user_id))

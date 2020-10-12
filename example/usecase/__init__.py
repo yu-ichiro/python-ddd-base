@@ -1,8 +1,10 @@
 from typing import List
+from uuid import uuid4
 
 import inject
 
-from example.domain.user import Name, UserID, Base, BulkRequest, User
+from example.domain.user import Name, UserID, BulkRequest, User
+from example.domain import Base
 from example.domain.user.IUserRepo import IUserRepo
 
 
@@ -28,7 +30,8 @@ class UserUseCase:
     repo: IUserRepo = inject.attr(IUserRepo)
 
     def create_user(self, name: Name) -> UserCreatedResult:
-        user = self.repo.create_user(name)
+        user = User.create(name)
+        self.repo.save_user(user)
         return UserCreatedResult(
             id=user.id.value,
             name=user.name
