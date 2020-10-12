@@ -53,7 +53,7 @@ class BulkRequest(ValueBase):
 
 
 class UserID(IDBase):
-    value: str
+    ...
 
 
 class User(EntityBase):
